@@ -3,10 +3,10 @@ import os
 from PIL import Image
 from torch.utils.data import Dataset
 
-from project.FishRecord import FishRecord
+from FishRecord import FishRecord
 
 
-class FishDatasetRemote(Dataset):
+class FishDataset(Dataset):
     def __init__(self, root_path, prefix, transform, device="cpu"):
         self.root_path = root_path
         self.prefix = prefix

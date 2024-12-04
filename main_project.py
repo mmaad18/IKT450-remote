@@ -3,8 +3,8 @@ import time
 import torch
 from torch import nn
 
-from project.remote.FishDatasetRemote import FishDatasetRemote
-from project.remote.FishNetworkRemote import FishNeuralNetworkRemote
+from FishDataset import FishDataset
+from FishNetwork import FishNeuralNetwork
 from utils import plot_loss
 from utils import display_info_project, load_device, dataset_to_loaders
 from torchvision import transforms
@@ -46,13 +46,13 @@ def test_loop(dataloader, model, loss_fn, device="cpu"):
 def main():
     display_info_project()
 
-    print(torch.cuda.is_available())  # Should return True if CUDA is available
-    print(torch.cuda.get_device_name(0))  # Prints the name of the GPU
+    print("CUDA Available: " + str(torch.cuda.is_available()))
+    print("GPU Name: " + str(torch.cuda.get_device_name(0)))
 
     device = load_device()
     print(f"Using {device} device")
 
-    model = FishNeuralNetworkRemote().to(device)
+    model = FishNeuralNetwork().to(device)
     model = torch.compile(model)
     print(model)
 
@@ -67,7 +67,7 @@ def main():
         transforms.ToTensor()  # Convert the image to a tensor
     ])
 
-    fish_data = FishDatasetRemote("datasets/Fish_GT", "fish", transform, device)
+    fish_data = FishDataset("/home/ubuntu/Documents/GitHub/datasets/Fish_GT", "fish", transform, device)
     train_loader, eval_loader, test_loader = dataset_to_loaders(fish_data, batch_size)
 
     loss_fn = nn.MSELoss()
