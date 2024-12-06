@@ -1,9 +1,9 @@
 import os
 
-import torch
-from torchvision.transforms import v2
 import numpy as np
+import torch
 from PIL import Image
+from torchvision.transforms import v2
 
 
 def images_size(root_path: str):

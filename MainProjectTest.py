@@ -1,16 +1,14 @@
 import os
 import unittest
 from collections import Counter
-import torch
-from torchvision.transforms import v2
-from torchvision.io import decode_image, read_image
-from PIL import Image
 
 import numpy as np
+import torch
+from matplotlib import pyplot as plt
+from torchvision.io import read_image
+from torchvision.transforms import v2
 
 from main_project_utils import images_size, path_to_fish_id, images_size_by_class, get_root_path
-
-from matplotlib import pyplot as plt
 
 
 class MainProjectTest(unittest.TestCase):

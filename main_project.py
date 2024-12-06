@@ -6,9 +6,8 @@ from torch import nn
 from FishDataset import FishDataset
 from FishNetwork import FishNeuralNetwork
 from main_project_utils import get_transform, get_root_path
-from utils import plot_loss
 from utils import display_info_project, load_device, dataset_to_loaders_2
-from torchvision import transforms
+from utils import plot_loss
 
 
 def train_loop(dataloader, model, loss_fn, optimizer, device="cpu"):
