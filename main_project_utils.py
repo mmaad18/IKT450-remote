@@ -56,3 +56,7 @@ def get_transform():
         v2.GaussianBlur(kernel_size=(5, 5), sigma=(0.1, 1.)),
     ])
 
+
+def get_root_path():
+    return "/home/ubuntu/Documents/Datasets/Fish_GT/image_cropped"
+

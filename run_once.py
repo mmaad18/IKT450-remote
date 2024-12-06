@@ -1,8 +1,14 @@
 import os
 import subprocess
+import shutil
 from PIL import Image, ImageChops
 
 
+'''
+This file was made because I had a lot of trouble running the code on the cloud GPUs @ LamdaLabs,
+as I wanted to use the newest PyTorch version, but the cloud GPUs only supported PyTorch 2.4.1.
+I messed up a lot of instances, and for each time I had to setup a new instance.
+'''
 def crop_black_borders(image_path: str, counter: int):
     image = Image.open(image_path)
 
@@ -45,7 +51,7 @@ def crop_borders_all_images(input_dir, output_dir):
     print(f"{counter} images cropped")
 
 
-def setup_remote_server():
+def create_folders_download_dataset():
     # Create directories
     base_dir = os.path.expanduser("~/Documents")
     dirs_to_create = [
@@ -87,9 +93,20 @@ def manipulate_images():
     crop_borders_all_images(input_dir, output_dir)
 
 
+def copy_files():
+    source_file = os.path.expanduser("~/Documents/Datasets/Fish_GT/class_id.csv")
+    destination_dir = os.path.expanduser("~/Documents/Datasets/Fish_GT/image_cropped")
+
+    os.makedirs(destination_dir, exist_ok=True)
+    shutil.copy(source_file, os.path.join(destination_dir, "class_id.csv"))
+
+    print(f"File copied to {destination_dir}")
+
+
 def run_once():
-    setup_remote_server()
+    create_folders_download_dataset()
     manipulate_images()
+    copy_files()
 
 
 run_once()

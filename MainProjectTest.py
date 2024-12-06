@@ -3,18 +3,18 @@ import unittest
 from collections import Counter
 import torch
 from torchvision.transforms import v2
-from torchvision.io import decode_image
+from torchvision.io import decode_image, read_image
 from PIL import Image
 
 import numpy as np
 
-from main_project_utils import images_size, path_to_fish_id, images_size_by_class
+from main_project_utils import images_size, path_to_fish_id, images_size_by_class, get_root_path
 
 from matplotlib import pyplot as plt
 
 
 class MainProjectTest(unittest.TestCase):
-    root_path = "/home/ubuntu/Documents/GitHub/datasets/Fish_GT/fish_image"
+    root_path = get_root_path()
 
 
     def test_images_size(self):
@@ -204,7 +204,7 @@ class MainProjectTest(unittest.TestCase):
             v2.GaussianBlur(kernel_size=(5, 5), sigma=(0.1, 1.)),
         ])
 
-        image = decode_image(file_path)
+        image = read_image(file_path)
         tensor = transform(image)
         transformed_image = tensor.permute(1, 2, 0).numpy()
         image = image.permute(1, 2, 0).numpy()

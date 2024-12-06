@@ -5,7 +5,7 @@ from torch import nn
 
 from FishDataset import FishDataset
 from FishNetwork import FishNeuralNetwork
-from main_project_utils import get_transform
+from main_project_utils import get_transform, get_root_path
 from utils import plot_loss
 from utils import display_info_project, load_device, dataset_to_loaders_2
 from torchvision import transforms
@@ -47,9 +47,6 @@ def test_loop(dataloader, model, loss_fn, device="cpu"):
 def main():
     display_info_project()
 
-    print("CUDA Available: " + str(torch.cuda.is_available()))
-    print("GPU Name: " + str(torch.cuda.get_device_name(0)))
-
     device = load_device()
     print(f"Using {device} device")
 
@@ -62,9 +59,7 @@ def main():
     batch_size = 100
     epochs = 100
 
-    transform = get_transform()
-
-    fish_data = FishDataset("/home/ubuntu/Documents/GitHub/datasets/Fish_GT", "fish", transform, device)
+    fish_data = FishDataset(get_root_path(), "fish", get_transform(), device)
     train_loader, test_loader = dataset_to_loaders_2(fish_data, batch_size)
 
     loss_fn = nn.CrossEntropyLoss()

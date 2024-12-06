@@ -2,6 +2,7 @@ import os
 
 from PIL import Image
 from torch.utils.data import Dataset
+from torchvision.io import read_image
 
 from FishRecord import FishRecord
 
@@ -39,7 +40,7 @@ class FishDataset(Dataset):
         T_list = []
 
         for record in self.data_list:
-            image_X = Image.open(record.file_path)
+            image_X = read_image(record.file_path)
             tensor_X = self.transform(image_X)
             X_list.append(tensor_X.to(self.device))
             T_list.append(record.species.to(self.device))
