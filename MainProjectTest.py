@@ -1,7 +1,9 @@
 import os
 import unittest
 from collections import Counter
-from torchvision import transforms
+import torch
+from torchvision.transforms import v2
+from torchvision.io import decode_image
 from PIL import Image
 
 import numpy as np
@@ -193,15 +195,19 @@ class MainProjectTest(unittest.TestCase):
     def test_image_transform(self):
         file_path = os.path.join(self.root_path, "fish_01/fish_000000009598_05281.png")
 
-        transform = transforms.Compose([
-            transforms.Resize(64),  # Resize the shorter side to 256 and keep the aspect ratio
-            transforms.CenterCrop(64),
-            transforms.ToTensor()  # Convert the image to a tensor
+        transform = v2.Compose([
+            v2.ToDtype(torch.float32, scale=True),
+            v2.RandomResizedCrop(size=(64, 64)),
+            v2.RandomHorizontalFlip(p=0.5),
+            v2.ColorJitter(brightness=.25, hue=.15),
+            v2.GaussianNoise(mean=0.0, sigma=0.05),
+            v2.GaussianBlur(kernel_size=(5, 5), sigma=(0.1, 1.)),
         ])
 
-        image = Image.open(file_path)
+        image = decode_image(file_path)
         tensor = transform(image)
         transformed_image = tensor.permute(1, 2, 0).numpy()
+        image = image.permute(1, 2, 0).numpy()
 
         # Plot the original and transformed images side by side
         plt.figure(figsize=(8, 4))

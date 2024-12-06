@@ -5,8 +5,9 @@ from torch import nn
 
 from FishDataset import FishDataset
 from FishNetwork import FishNeuralNetwork
+from main_project_utils import get_transform
 from utils import plot_loss
-from utils import display_info_project, load_device, dataset_to_loaders
+from utils import display_info_project, load_device, dataset_to_loaders_2
 from torchvision import transforms
 
 
@@ -61,16 +62,12 @@ def main():
     batch_size = 100
     epochs = 100
 
-    transform = transforms.Compose([
-        transforms.Resize(128),  # Resize the shorter side to 256 and keep the aspect ratio
-        transforms.CenterCrop(128),
-        transforms.ToTensor()  # Convert the image to a tensor
-    ])
+    transform = get_transform()
 
     fish_data = FishDataset("/home/ubuntu/Documents/GitHub/datasets/Fish_GT", "fish", transform, device)
-    train_loader, eval_loader, test_loader = dataset_to_loaders(fish_data, batch_size)
+    train_loader, test_loader = dataset_to_loaders_2(fish_data, batch_size)
 
-    loss_fn = nn.MSELoss()
+    loss_fn = nn.CrossEntropyLoss()
     optimizer = torch.optim.NAdam(model.parameters(), lr=learning_rate)
 
     start = time.perf_counter()

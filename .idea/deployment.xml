@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="ubuntu@192.222.57.112:22 key (2)" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="ubuntu@192.222.59.79:22 key" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="ubuntu@192.222.57.112:22 key">
         <serverdata>
@@ -13,6 +13,13 @@
         <serverdata>
           <mappings>
             <mapping deploy="/home/ubuntu/Documents/GitHub/IKT450-remote" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="ubuntu@192.222.59.79:22 key">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/ubuntu/Documents/IKT450" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>

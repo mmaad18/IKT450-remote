@@ -4,7 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/out" />
     </content>
-    <orderEntry type="jdk" jdkName="Remote Python 3.10.12 (sftp://ubuntu@192.222.57.112:22/usr/bin/python3)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Remote Python 3.10.12 (sftp://ubuntu@192.222.59.79:22/usr/bin/python3)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

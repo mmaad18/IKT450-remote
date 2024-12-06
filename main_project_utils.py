@@ -1,8 +1,9 @@
 import os
 
+import torch
+from torchvision.transforms import v2
 import numpy as np
 from PIL import Image
-from matplotlib import pyplot as plt
 
 
 def images_size(root_path: str):
@@ -44,4 +45,14 @@ def path_to_fish_id(path: str):
     file_name = path.split('\\')[-1]
     return int(file_name.split('_')[-1].split('.')[0])
 
+
+def get_transform():
+    return v2.Compose([
+        v2.ToDtype(torch.float32, scale=True),
+        v2.RandomResizedCrop(size=(64, 64)),
+        v2.RandomHorizontalFlip(p=0.5),
+        v2.ColorJitter(brightness=.25, hue=.15),
+        v2.GaussianNoise(mean=0.0, sigma=0.05),
+        v2.GaussianBlur(kernel_size=(5, 5), sigma=(0.1, 1.)),
+    ])
 
