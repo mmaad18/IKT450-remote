@@ -5,8 +5,8 @@ from torch import nn
 
 from FishDataset import FishDataset
 from FishNetwork import FishNeuralNetwork
-from main_project_utils import get_transform, get_root_path
-from utils import display_info_project, load_device, dataset_to_loaders_2
+from main_project_utils import get_transform, get_root_path, print_time
+from utils import display_info, load_device, dataset_to_loaders_2
 from utils import plot_loss
 
 
@@ -44,7 +44,8 @@ def test_loop(dataloader, model, loss_fn, device="cpu"):
 
 
 def main():
-    display_info_project()
+    display_info()
+    start = time.perf_counter()
 
     device = load_device()
     print(f"Using {device} device")
@@ -58,13 +59,15 @@ def main():
     batch_size = 100
     epochs = 100
 
+    print_time(start, "Loaded and compiled network")
+
     fish_data = FishDataset(get_root_path(), "fish", get_transform(), device)
     train_loader, test_loader = dataset_to_loaders_2(fish_data, batch_size)
 
+    print_time(start, "Loaded data")
+
     loss_fn = nn.CrossEntropyLoss()
     optimizer = torch.optim.NAdam(model.parameters(), lr=learning_rate)
-
-    start = time.perf_counter()
 
     test_losses = []
 
@@ -80,8 +83,7 @@ def main():
             print(f"Epoch {t}\n-------------------------------")
             print(f"Test Error: {test_loss}\n")
 
-            end = time.perf_counter()
-            print(f"Elapsed time: {end - start} seconds")
+            print_time(start)
 
     print("Done!")
     plot_loss("MSE", test_losses, learning_rate, momentum, batch_size)

@@ -1,4 +1,5 @@
 import os
+import time
 
 import numpy as np
 import torch
@@ -59,4 +60,9 @@ def get_transform():
 
 def get_root_path():
     return "/home/ubuntu/Documents/Datasets/Fish_GT/image_cropped"
+
+
+def print_time(start, message="Elapsed time"):
+    end = time.perf_counter()
+    print(f"{message}: {end - start} seconds")
 

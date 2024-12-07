@@ -17,7 +17,7 @@ class FishDataset(Dataset):
 
 
     def __len__(self):
-        return len(self.data_list)
+        return len(self.X)
 
 
     def __getitem__(self, idx):
@@ -40,8 +40,21 @@ class FishDataset(Dataset):
 
         for record in self.data_list:
             image_X = read_image(record.file_path)
-            tensor_X = self.transform(image_X)
-            X_list.append(tensor_X.to(self.device))
-            T_list.append(record.species.to(self.device))
+            copies = self.species_to_copies_map(record.species_idx)
+            for _ in range(copies):
+                tensor_X = self.transform(image_X)
+                X_list.append(tensor_X.to(self.device))
+                T_list.append(record.species.to(self.device))
 
         return X_list, T_list
+
+
+    def species_to_copies_map(self, species_idx: int):
+        if species_idx == 1:
+            return 1
+        elif species_idx == 3 or species_idx == 4:
+            return 3
+        elif species_idx == 2 or species_idx == 5:
+            return 4
+        else:
+            return 10

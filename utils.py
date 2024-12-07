@@ -21,7 +21,7 @@ def time_function_out(func, *args, **kwargs):
     return result, diff
 
 
-def display_info_project():
+def display_info():
     print("Author: Mohamed Yahya Maad")
     print("Course: IKT450")
     print("Project: Fish Classification")
@@ -46,6 +46,8 @@ def dataset_to_loaders_2(dataset, batch_size: int, train_factor=0.8, num_workers
 
     train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True, num_workers=num_workers)
     eval_loader = DataLoader(eval_data, batch_size=batch_size, shuffle=False, num_workers=num_workers)
+
+    print(f"Train size: {train_size}, Eval size: {val_size}")
 
     return train_loader, eval_loader
 
