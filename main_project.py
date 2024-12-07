@@ -4,7 +4,7 @@ import torch
 from torch import nn
 
 from FishDataset import FishDataset
-from FishNetwork import FishNeuralNetwork
+from LeNetReLU import LeNetReLU
 from main_project_utils import get_transform, get_root_path, print_time
 from utils import display_info, load_device, dataset_to_loaders_2
 from utils import plot_loss
@@ -50,7 +50,7 @@ def main():
     device = load_device()
     print(f"Using {device} device")
 
-    model = FishNeuralNetwork().to(device)
+    model = LeNetReLU().to(device)
     model = torch.compile(model)
     print(model)
 
