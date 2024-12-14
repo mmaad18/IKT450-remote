@@ -50,11 +50,11 @@ class FishDataset(Dataset):
 
 
     def species_to_copies_map(self, species_idx: int):
-        if species_idx == 1:
+        if species_idx == 0:
             return 1
-        elif species_idx == 3 or species_idx == 4:
+        elif species_idx == 2 or species_idx == 3:
             return 3
-        elif species_idx == 2 or species_idx == 5:
+        elif species_idx == 1 or species_idx == 4:
             return 4
         else:
             return 10

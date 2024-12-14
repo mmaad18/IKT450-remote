@@ -33,14 +33,14 @@ def test_loop(dataloader, model, loss_fn, device="cpu"):
     with torch.no_grad():
         for X, T in dataloader:
             Y = model(X)
-            pred_class = Y.argmax(dim=0)
+            pred_class = Y.argmax(dim=1)
             test_loss += loss_fn(Y, T).item()
             correct += (pred_class == T).type(torch.float).sum().item()
 
     test_loss /= num_batches
     correct /= size
 
-    return test_loss
+    return test_loss, correct
 
 
 def main():
@@ -54,7 +54,7 @@ def main():
     model = torch.compile(model)
     print(model)
 
-    learning_rate = 0.01
+    learning_rate = 0.001
     momentum = 0.9
     batch_size = 100
     epochs = 100
@@ -73,7 +73,7 @@ def main():
 
     for t in range(epochs):
         train_loop(train_loader, model, loss_fn, optimizer, device)
-        test_loss = test_loop(test_loader, model, loss_fn, device)
+        test_loss, _ = test_loop(test_loader, model, loss_fn, device)
         test_losses.append(test_loss)
 
         if t % 1 == 0:
